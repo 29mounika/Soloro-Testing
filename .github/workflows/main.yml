@@ -1,4 +1,4 @@
-name: Python CI (Pytest)
+name: Fullstack CI - Integration and E2E Tests
 
 on:
   push:
@@ -10,6 +10,21 @@ jobs:
   test:
     runs-on: windows-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -17,13 +32,43 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'  # or whatever version you're using
+          python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Backend Dependencies
         run: |
-          python -m pip install --upgrade pip
+          cd backend
           pip install -r requirements.txt
 
-      - name: Run Pytest
+      - name: Run Backend
         run: |
-          pytest
+          cd backend
+          uvicorn main:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+
+      - name: Run Integration Tests
+        run: |
+          cd backend
+          pytest tests/integration
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Start Frontend App
+        run: |
+          cd frontend
+          npm start &
+          sleep 10
+
+      - name: Install Playwright and Run E2E Tests
+        run: |
+          pip install playwright
+          playwright install
+          cd backend
+          pytest tests/e2e
