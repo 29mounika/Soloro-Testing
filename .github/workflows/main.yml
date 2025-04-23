@@ -41,28 +41,28 @@ jobs:
 
       - name: Install Backend Dependencies
         run: |
-          cd backend
+          cd SoloroProject/Backend
           pip install -r requirements.txt
 
       - name: Run Backend
         run: |
-          cd backend
+          cd SoloroProject/Backend
           uvicorn main:app --host 0.0.0.0 --port 8000 &
           sleep 5
 
-      - name: Run Integration Tests
+      - name: Run Backend Integration Tests
         run: |
-          cd backend
-          pytest tests/integration
+          cd SoloroProject/Backend
+          pytest test_api.py
 
       - name: Install Frontend Dependencies
         run: |
-          cd frontend
+          cd SoloroProject/Frontend
           npm install
 
       - name: Start Frontend App
         run: |
-          cd frontend
+          cd SoloroProject/Frontend
           npm start &
           sleep 10
 
@@ -70,5 +70,5 @@ jobs:
         run: |
           pip install playwright
           playwright install
-          cd backend
-          pytest tests/e2e
+          cd SoloroProject/Frontend
+          pytest test_react.py
