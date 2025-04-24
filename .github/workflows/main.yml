@@ -1,4 +1,3 @@
-
 name: Fullstack CI - Integration and E2E Tests
 
 on:
@@ -68,16 +67,11 @@ jobs:
           cd Frontend
           npm install
 
-      - name: Install Playwright and Browser Dependencies
-        run: |
-          cd Frontend
-          npm install playwright
-          npx playwright install --with-deps
-
-      - name: Set Executable Permissions for Playwright
-        run: |
-          cd Frontend
-          chmod +x ./node_modules/.bin/playwright
+      # ✅ RECOMMENDED: Install Playwright browsers and dependencies using the official GitHub Action
+      - name: Install Playwright Browsers
+        uses: microsoft/playwright-github-action@v1
+        with:
+          with-deps: true
 
       - name: Start Frontend App
         run: |
