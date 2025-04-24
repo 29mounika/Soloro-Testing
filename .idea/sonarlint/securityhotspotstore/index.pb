@@ -27,3 +27,5 @@ K
 Frontend/test_react.spec.js,2\2\2261baefb9fb87465fa574a05f8dc31bf0b0fcaf
 K
 test-results/.last-run.json,9\d\9db6cd4f4ed8dc64d41d8c024cf9a9473ff5fb16
+D
+Frontend/conftest.py,b\d\bd35b61ac309f76bc06bbe026c93b9934ba4e508
