@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -62,25 +62,26 @@ jobs:
           name: backend-html-report
           path: Backend/backend-report.html
 
-      - name: Install Frontend Dependencies and Playwright
+      - name: Install Frontend Dependencies
         run: |
           cd Frontend
           npm install
-          npx playwright install --with-deps
 
       - name: Start Frontend App
         run: |
           cd Frontend
-          npm start &
+          npm start & 
           sleep 10
 
-      - name: Run Playwright E2E Tests with HTML Reporter
+      - name: Install Playwright and Run E2E Tests with Report
         run: |
+          pip install playwright pytest-html
+          playwright install
           cd Frontend
-          npx playwright test --reporter=html
+          pytest test_react.py --html=frontend-report.html
 
-      - name: Upload Frontend HTML Report
+      - name: Upload Frontend Test Report
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-playwright-report
-          path: Frontend/playwright-report
+          name: frontend-html-report
+          path: Frontend/frontend-report.html
