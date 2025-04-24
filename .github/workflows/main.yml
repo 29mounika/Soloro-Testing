@@ -66,7 +66,16 @@ jobs:
         run: |
           cd Frontend
           npm install
+
+      - name: Install Playwright Dependencies
+        run: |
+          cd Frontend
           npx playwright install
+
+      - name: Set Executable Permissions for Playwright
+        run: |
+          cd Frontend
+          chmod +x ./node_modules/.bin/playwright
 
       - name: Start Frontend App
         run: |
