@@ -67,10 +67,11 @@ jobs:
           cd Frontend
           npm install
 
-      - name: Install Playwright Dependencies
+      - name: Install Playwright and Browser Dependencies
         run: |
           cd Frontend
-          npx playwright install
+          npm install playwright
+          npx playwright install --with-deps
 
       - name: Set Executable Permissions for Playwright
         run: |
