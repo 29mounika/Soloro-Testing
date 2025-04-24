@@ -62,29 +62,24 @@ jobs:
           name: backend-html-report
           path: Backend/backend-report.html
 
-      - name: Install Frontend Dependencies
+      - name: Install Frontend Dependencies and Playwright
         run: |
           cd Frontend
           npm install
-
-      # ✅ RECOMMENDED: Install Playwright browsers and dependencies using the official GitHub Action
-      - name: Install Playwright Browsers
-        uses: microsoft/playwright-github-action@v1
-        with:
-          with-deps: true
+          npx playwright install --with-deps
 
       - name: Start Frontend App
         run: |
           cd Frontend
-          npm start & 
+          npm start &
           sleep 10
 
-      - name: Run Playwright E2E Tests with Video and Report
+      - name: Run Playwright E2E Tests with HTML Reporter
         run: |
           cd Frontend
           npx playwright test --reporter=html
 
-      - name: Upload Frontend HTML Report with Videos
+      - name: Upload Frontend HTML Report
         uses: actions/upload-artifact@v4
         with:
           name: frontend-playwright-report
