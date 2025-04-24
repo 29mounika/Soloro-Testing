@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -73,10 +73,13 @@ jobs:
           npm start & 
           sleep 10
 
-      - name: Install Playwright and Run E2E Tests with Report
+      - name: Install Playwright + Pytest Plugin
         run: |
-          pip install playwright pytest-html
-          playwright install
+          pip install pytest-playwright pytest-html
+          playwright install --with-deps
+
+      - name: Run E2E Tests with Report
+        run: |
           cd Frontend
           pytest test_react.py --html=frontend-report.html
 
