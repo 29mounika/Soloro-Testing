@@ -19,13 +19,7 @@ H
 report.html,c\4\c4f2a6fb894afc947066125afb1b3e891bf0dc95
 M
 Frontend/playwright.config.ts,0\3\031ba02e51734c6526047a353cd0809faae55fb1
-I
-Frontend/test_react.js.py,f\1\f148e8468cadf14743d4aee72bf26addf584f01a
-F
-Frontend/test_react.js,5\6\563ec4a7c110294f6d1221a68f2448196f5f6a1d
-K
-Frontend/test_react.spec.js,2\2\2261baefb9fb87465fa574a05f8dc31bf0b0fcaf
-K
-test-results/.last-run.json,9\d\9db6cd4f4ed8dc64d41d8c024cf9a9473ff5fb16
 D
 Frontend/conftest.py,b\d\bd35b61ac309f76bc06bbe026c93b9934ba4e508
+U
+%Frontend/playwright-report/index.html,c\0\c06bf9ac1dca0efb018468cd0c64823f453356fb

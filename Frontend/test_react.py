@@ -46,3 +46,27 @@ def test_slider_arrows(context):
 
     arrows.nth(0).click()
     arrows.nth(1).click()
+
+    #################################################
+    def test_page_load(page):
+        page.goto("https://dev.mysoloro.com/find-clubs")
+        assert page.title() != ""  # Basic check
+        assert page.locator("text=Choose A Club By").is_visible()
+
+        search_input = page.get_by_placeholder("Search Name, City Or Zip Code")
+        search_input.fill("banglore")
+        page.get_by_role("button", name="Search").click()
+
+        # Expect at least one result
+        page.wait_for_selector("text=Book Club", timeout=5000)
+        assert page.locator("text=Book Club").is_visible()
+        # Check for empty state (you may need to update selector/text based on actual app)
+        assert not page.locator(".club-card").is_visible()
+        input_box = page.get_by_placeholder("Search Name, City Or Zip Code")
+        input_box.fill("banglore")
+
+        # Click clear 'X' icon
+        page.locator("button:has-text('×')").click()
+        assert input_box.input_value() == ""
+
+
